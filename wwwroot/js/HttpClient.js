@@ -21,14 +21,14 @@ function HttpClient(url) {
             }).then(this.handleErrorsAsync);
         },
         async put(id, model = {}) {
-            return await fetch(`${url}/${id}`, model, {
+            return await fetch(`${url}/${id}`, {
                 method: 'PUT',
                 headers: {
                     'Accept': 'application/json',
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify(model)
-            }).then(this.handleErrorsAsync);
+            });
         },
         async delete(id) {
             return await fetch(`${url}/${id}`, {
@@ -36,9 +36,6 @@ function HttpClient(url) {
             });
         },
         async handleErrorsAsync(response) {
-
-            debugger
-
             if (response.ok) {
                 return await response.json();
             }
