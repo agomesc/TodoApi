@@ -3,6 +3,7 @@
     <meta charset="UTF-8">
     <title>To-do CRUD</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="lib/bootstrap/css/bootstrap.css" rel="stylesheet" />
     <link rel="stylesheet" href="css/site.css" />
 </head>
 <body>
@@ -33,6 +34,11 @@
         </tr>
         <tbody id="todos"></tbody>
     </table>
+
+    <div class="spinner" id="spinner"></div>
+    
+    <script src="lib/bootstrap/js/bootstrap.js"></script>
+    <script src="lib/jquery/jquery.js"></script>
     <script src="js/HttpClient.js" asp-append-version="true"></script>
     <script src="js/site.js" asp-append-version="true"></script>
     <script type="text/javascript">

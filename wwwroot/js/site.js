@@ -1,18 +1,20 @@
 (async () => {
 })();
 
+const origFetch = window.fetch;
 const uri = 'api/todoitems';
 let todos = [];
+const spinner = $('#spinner');
 
 const httpClient = HttpClient(uri);
 
-function getItems() {
-    httpClient.list()
+async function getItems() {
+    await httpClient.list()
         .then(data => _displayItems(data))
         .catch(error => console.error('Unable to get items.', error));
 }
 
-function addItem() {
+async function addItem() {
     const addNameTextbox = document.getElementById('add-name');
 
     const item = {
@@ -20,17 +22,14 @@ function addItem() {
         name: addNameTextbox.value.trim()
     };
 
-    httpClient.post(item).then(() => {
+    await httpClient.post(item).then(() => {
         getItems();
         addNameTextbox.value = '';
     }).catch(error => console.error('Unable to add item.', error));
 }
 
-function deleteItem(id) {
-    fetch(`${uri}/${id}`, {
-        method: 'DELETE'
-    })
-        .then(() => getItems())
+async function deleteItem(id) {
+    await httpClient.delete(id).then(() => getItems())
         .catch(error => console.error('Unable to delete item.', error));
 }
 
@@ -117,3 +116,25 @@ function _displayItems(data) {
 
     todos = data;
 }
+
+function displaySpinner() {
+    if (spinner != undefined) {
+        spinner.show();
+    }
+}
+
+function removeSpinner() {
+    if (spinner != undefined) {
+        spinner.hide();
+    }
+}
+
+fetch = function () {
+    this.displaySpinner();
+    return origFetch.apply(this, arguments)
+        .then((res) => {
+            this.removeSpinner();
+            return res;
+        })
+}
+
