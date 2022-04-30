@@ -19,7 +19,7 @@ function HttpClient(url) {
                     'Accept': 'application/json',
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({model})
+                body: JSON.stringify(model)
             }).then(this.handleErrorsAsync);
         },
         async put(id, model = {}) {
@@ -29,9 +29,7 @@ function HttpClient(url) {
                     'Accept': 'application/json',
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({
-                    model
-                })
+                body: JSON.stringify(model)
             }).then(this.handleErrorsAsync);
         },
         async delete(id) {

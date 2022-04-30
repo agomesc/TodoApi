@@ -1,9 +1,13 @@
+(async () => {
+})();
+
 const uri = 'api/todoitems';
 let todos = [];
 
+const httpClient = HttpClient(uri);
+
 function getItems() {
-    fetch(uri)
-        .then(response => response.json())
+    httpClient.list()
         .then(data => _displayItems(data))
         .catch(error => console.error('Unable to get items.', error));
 }
@@ -16,20 +20,10 @@ function addItem() {
         name: addNameTextbox.value.trim()
     };
 
-    fetch(uri, {
-        method: 'POST',
-        headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(item)
-    })
-        .then(response => response.json())
-        .then(() => {
-            getItems();
-            addNameTextbox.value = '';
-        })
-        .catch(error => console.error('Unable to add item.', error));
+    httpClient.post(item).then(() => {
+        getItems();
+        addNameTextbox.value = '';
+    }).catch(error => console.error('Unable to add item.', error));
 }
 
 function deleteItem(id) {
