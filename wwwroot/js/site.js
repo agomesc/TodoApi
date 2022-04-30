@@ -63,7 +63,7 @@ function closeInput() {
 }
 
 function _displayCount(itemCount) {
-    const name = (itemCount === 1) ? 'to-do' : 'to-dos';
+    const name = (itemCount === 1) ? 'Cadastrado' : 'Cadastrados';
 
     document.getElementById('counter').innerText = `${itemCount} ${name}`;
 }
@@ -83,19 +83,24 @@ function _displayItems(data) {
         isCompleteCheckbox.checked = item.isComplete;
 
         let editButton = button.cloneNode(false);
-        editButton.innerText = 'Edit';
+        editButton.innerText = 'Editar';
+        editButton.className = 'btn btn-primary';
         editButton.setAttribute('onclick', `displayEditForm(${item.id})`);
 
         let deleteButton = button.cloneNode(false);
-        deleteButton.innerText = 'Delete';
+        deleteButton.className = 'btn btn-danger';
+        deleteButton.innerText = 'Deletar';
         deleteButton.setAttribute('onclick', `deleteItem(${item.id})`);
 
         let tr = tBody.insertRow();
+        tr.className = 'rows';
 
         let td1 = tr.insertCell(0);
+        td1.className = 'col-sm';
         td1.appendChild(isCompleteCheckbox);
 
         let td2 = tr.insertCell(1);
+        td2.className = 'col-md-auto';
         let textNode = document.createTextNode(item.name);
         td2.appendChild(textNode);
 
