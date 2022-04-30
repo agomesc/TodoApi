@@ -7,41 +7,55 @@
     <link rel="stylesheet" href="css/site.css" />
 </head>
 <body>
+
     <div class="container">
-        
-        <div class="mb-1">
+
+        <div class="col-3">
             <h1>CRUD</h1>
             <h3>Adcionar</h3>
             <form action="javascript:void(0);" method="POST" onsubmit="addItem()" class="row g-3">
-                <input type="text" id="add-name" class="form-control" aria-describedby="add-name">
-                <input type="submit" value="Add" class="btn btn-success">
+                <div class="mb-3">
+                    <label class="form-label">Nome</label>
+                    <input type="text" id="add-name" class="form-control" aria-describedby="add-name">
+                </div>
+                <div class="mb-3">
+                    <input type="submit" value="Add" class="btn btn-success">
+                </div>
             </form>
+        </div>
 
+        <div class="col-3">
             <div id="editForm">
                 <h3>Editar</h3>
+                <a onclick="closeInput()" aria-label="Close">&#10006;</a>
                 <form action="javascript:void(0);" onsubmit="updateItem()" class="row g-3">
-                    <input type="hidden" id="edit-id">
-                    <input type="checkbox" id="edit-isComplete" aria-label="edit-isComplete">
-                    <input type="text" id="edit-name" aria-label="edit-name" class="form-control">
-                    <input type="submit" value="Save" class="btn btn-info">
-                    <a onclick="closeInput()" aria-label="Close">&#10006;</a>
+                    <div class="mb-3">
+                        <label class="form-label">Completo?</label>
+                        <input type="hidden" id="edit-id">
+                        <input type="checkbox" id="edit-isComplete" aria-label="edit-isComplete">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Nome</label>
+                        <input type="text" id="edit-name" aria-label="edit-name" class="form-control">
+                    </div>
+                    <div class="mb-3">
+                        <input type="submit" value="Save" class="btn btn-info">
+                    </div>
                 </form>
             </div>
-
-            <table class="container">
-                <tr class="rows">
-                    <th class="col-1">Completo?</th>
-                    <th class="col-10">Nome</th>
-                    <th class="col">Editar</th>
-                    <th class="col">Excluir</th>
-                </tr>
-                <tbody class="col" id="todos"></tbody>
-            </table>
-            <p id="counter"></p>
         </div>
-       
+        <table>
+            <tr class="rows">
+                <th class="col-1">Completo?</th>
+                <th class="col-10">Nome</th>
+                <th class="col">Editar</th>
+                <th class="col">Excluir</th>
+            </tr>
+            <tbody class="col" id="todos"></tbody>
+        </table>
+        <p id="counter"></p>
     </div>
-    
+
     <div class="spinner" id="spinner"></div>
 
     <script src="lib/bootstrap/js/bootstrap.js"></script>
