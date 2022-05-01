@@ -123,9 +123,9 @@ function removeSpinner() {
     }
 }
 
-fetch = async() => {
+fetch = function() {
     this.displaySpinner();
-    return await origFetch.apply(this, arguments)
+    return origFetch.apply(this, arguments)
         .then((res) => {
             this.removeSpinner();
             return res;
