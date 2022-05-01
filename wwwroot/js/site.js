@@ -1,6 +1,3 @@
-(async () => {
-})();
-
 const origFetch = window.fetch;
 const uri = 'api/todoitems';
 let todos = [];
