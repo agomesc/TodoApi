@@ -4,11 +4,11 @@ const spinner = $('#spinner');
 const httpClient = HttpClient(uri);
 let todos = [];
 
-getItems = async () => {
+getItems = async () =>
     await httpClient.list()
         .then(data => _displayItems(data))
         .catch(error => console.error('Unable to get items.', error));
-}
+
 
 addItem = async () => {
     const addNameTextbox = document.getElementById('add-name');
@@ -24,10 +24,10 @@ addItem = async () => {
     }).catch(error => console.error('Unable to add item.', error));
 }
 
-deleteItem = async (id) => {
+deleteItem = async (id) =>
     await httpClient.del(id).then(() => getItems())
         .catch(error => console.error('Unable to delete item.', error));
-}
+
 
 function displayEditForm(id) {
     const item = todos.find(item => item.id === id);
@@ -54,9 +54,8 @@ updateItem = async () => {
     return false;
 }
 
-closeInput = () => {
-    document.getElementById('editForm').style.display = 'none';
-}
+closeInput = () => document.getElementById('editForm').style.display = 'none';
+
 
 _displayCount = (itemCount) => {
     const name = (itemCount === 1) ? 'Cadastrado' : 'Cadastrados';
