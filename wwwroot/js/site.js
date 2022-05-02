@@ -1,17 +1,16 @@
 const origFetch = window.fetch;
 const uri = 'api/todoitems';
-let todos = [];
 const spinner = $('#spinner');
-
 const httpClient = HttpClient(uri);
+let todos = [];
 
-async function getItems() {
+getItems = async () => {
     await httpClient.list()
         .then(data => _displayItems(data))
         .catch(error => console.error('Unable to get items.', error));
 }
 
-async function addItem() {
+addItem = async () => {
     const addNameTextbox = document.getElementById('add-name');
 
     const item = {
@@ -25,8 +24,8 @@ async function addItem() {
     }).catch(error => console.error('Unable to add item.', error));
 }
 
-async function deleteItem(id) {
-    await httpClient.delete(id).then(() => getItems())
+deleteItem = async (id) => {
+    await httpClient.del(id).then(() => getItems())
         .catch(error => console.error('Unable to delete item.', error));
 }
 
@@ -39,7 +38,7 @@ function displayEditForm(id) {
     document.getElementById('editForm').style.display = 'block';
 }
 
-async function updateItem() {
+updateItem = async () => {
     const itemId = document.getElementById('edit-id').value;
     const item = {
         id: parseInt(itemId, 10),
@@ -55,17 +54,17 @@ async function updateItem() {
     return false;
 }
 
-function closeInput() {
+closeInput = () => {
     document.getElementById('editForm').style.display = 'none';
 }
 
-function _displayCount(itemCount) {
+_displayCount = (itemCount) => {
     const name = (itemCount === 1) ? 'Cadastrado' : 'Cadastrados';
 
     document.getElementById('counter').innerText = `${itemCount} ${name}`;
 }
 
-function _displayItems(data) {
+_displayItems = (data) => {
     const tBody = document.getElementById('todos');
     tBody.innerHTML = '';
 
@@ -111,24 +110,24 @@ function _displayItems(data) {
     todos = data;
 }
 
-function displaySpinner() {
+displaySpinner = () => {
     if (spinner != undefined) {
         spinner.show();
     }
 }
 
-function removeSpinner() {
+removeSpinner = () => {
     if (spinner != undefined) {
         spinner.hide();
     }
 }
 
-fetch = function() {
+fetch = function () {
     this.displaySpinner();
     return origFetch.apply(this, arguments)
         .then((res) => {
             this.removeSpinner();
             return res;
-        })
+        }).catch(this.removeSpinner());
 }
 
