@@ -7,7 +7,6 @@ const HttpClient = (uri) => {
             method: 'GET',
         }).then(this.handleErrorsAsync);
 
-
     list = async () => await fetch(uri, { method: 'GET' })
         .then(this.handleErrorsAsync);
 
@@ -19,7 +18,6 @@ const HttpClient = (uri) => {
         },
         body: JSON.stringify(model)
     }).then(this.handleErrorsAsync);
-
 
     put = async (id, model = {}) => await fetch(`${uri}/${id}`, {
         method: 'PUT',
@@ -40,6 +38,7 @@ const HttpClient = (uri) => {
     }
 
     //Publicos
+    httpClient.get = get;
     httpClient.list = list;
     httpClient.post = post;
     httpClient.put = put;
